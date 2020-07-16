@@ -9,17 +9,24 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import reducers from "./reducers";
+import { loadState, saveState } from "./services";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const reduxStore = createStore(
+const localState = loadState();
+const store = createStore(
   reducers,
+  localState,
   composeEnhancers(applyMiddleware(reduxThunk))
 );
 
+store.subscribe(() => {
+  saveState(store.getState());
+});
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={reduxStore}>
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
