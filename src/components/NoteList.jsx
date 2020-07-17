@@ -2,12 +2,20 @@ import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import Icon from "@mdi/react";
-import { mdiMagnify } from "@mdi/js";
+import { mdiMagnify, mdiPencil, mdiTrashCan } from "@mdi/js";
 import { Button, ListGroup, Form, InputGroup } from "react-bootstrap";
 
 import { Spacer, EmptyState } from ".";
 
-function NoteList({ notes, onEdit, onShow, onSearch, emptyState }) {
+function NoteList({
+  notes,
+  isEdit,
+  onEdit,
+  onShow,
+  onDelete,
+  onSearch,
+  emptyState,
+}) {
   const notesLength = notes.length;
   return (
     <React.Fragment>
@@ -40,11 +48,23 @@ function NoteList({ notes, onEdit, onShow, onSearch, emptyState }) {
                       <span>{note.title}</span>
                     </div>
                     <Spacer />
-                    <div className="text-nowrap pr-3 font-weight-light small">
+                    <div className="text-nowrap mr-3 font-weight-light small">
                       {(note.date || "").slice(4, 10)}
                     </div>
-                    <Button size="sm" onClick={() => onEdit(note)}>
-                      Edit
+                    <Button
+                      size="sm"
+                      className="mr-2"
+                      onClick={() => onEdit(note)}
+                    >
+                      <Icon path={mdiPencil} size={0.7}></Icon>
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      disabled={isEdit}
+                      onClick={() => onDelete(note)}
+                    >
+                      <Icon path={mdiTrashCan} size={0.7}></Icon>
                     </Button>
                   </div>
                 </ListGroup.Item>

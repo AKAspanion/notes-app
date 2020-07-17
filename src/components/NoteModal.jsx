@@ -1,8 +1,9 @@
 import React from "react";
 
 import { Modal, Button } from "react-bootstrap";
+import { Spacer } from ".";
 
-function NoteModal({ title, onHide, content, ...rest }) {
+function NoteModal({ date, title, onHide, content, ...rest }) {
   return (
     <Modal
       {...rest}
@@ -15,6 +16,8 @@ function NoteModal({ title, onHide, content, ...rest }) {
       </Modal.Header>
       <Modal.Body>{content}</Modal.Body>
       <Modal.Footer>
+        <div className="h6 px-0">{date}</div>
+        <Spacer />
         <Button onClick={onHide}>Close</Button>
       </Modal.Footer>
     </Modal>

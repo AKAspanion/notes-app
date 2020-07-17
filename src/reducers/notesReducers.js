@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_NOTE } from "../actions/types";
+import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE } from "../actions/types";
 
 export default (state = { notes: [] }, action) => {
   switch (action.type) {
@@ -15,6 +15,11 @@ export default (state = { notes: [] }, action) => {
             return note;
           }),
         ],
+      };
+    case DELETE_NOTE:
+      return {
+        ...state,
+        notes: [...state.notes.filter((note) => note.id !== action.payload.id)],
       };
     default:
       return state;

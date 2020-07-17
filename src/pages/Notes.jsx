@@ -4,10 +4,15 @@ import { connect } from "react-redux";
 import { Row, Col, Card, Container } from "react-bootstrap";
 
 import { Spacer, NoteForm, NoteList, NoteModal } from "../components";
-import { addNote, updateNote } from "../actions";
+import { addNote, updateNote, deleteNote } from "../actions";
 import { uid } from "../utils";
 
-function MainPage({ notes, addNoteToState, updateNoteInState }) {
+function MainPage({
+  notes,
+  addNoteToState,
+  updateNoteInState,
+  deleteNoteInState,
+}) {
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -44,7 +49,7 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
     }
   };
 
-  const populateState = ({ date, title, content, id }) => {
+  const populateForm = ({ date, title, content, id }) => {
     handleFormChange("Id", id);
     handleFormChange("Title", title);
     handleFormChange("Content", content);
@@ -107,7 +112,13 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
     setIsEdit(true);
     setActive("active");
 
-    populateState(note);
+    populateForm(note);
+  };
+
+  const handleDelete = (note) => {
+    if (isEdit) return;
+
+    deleteNoteInState(note);
   };
 
   return (
@@ -145,7 +156,9 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
           />
           <Col xs={12} lg={"auto"} className="flex-grow-1 pb-3 pt-sm-2 pb-sm-4">
             <NoteList
+              isEdit={isEdit}
               onEdit={handleEdit}
+              onDelete={handleDelete}
               onSearch={handleSearch}
               emptyState={emptyStateProps()}
               onShow={(n) => toggleModal(true, n)}
@@ -169,4 +182,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   addNoteToState: addNote,
   updateNoteInState: updateNote,
+  deleteNoteInState: deleteNote,
 })(MainPage);
