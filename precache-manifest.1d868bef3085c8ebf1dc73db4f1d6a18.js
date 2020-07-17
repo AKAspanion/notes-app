@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "82bd26f34720a43a98c9c33491be24b1",
+    "revision": "ea413a3fdb56600d3be72422880783bf",
     "url": "/iarani-test/index.html"
   },
   {
-    "revision": "09c811fff3128efb1f72",
+    "revision": "0fb33e3f4628c2989b90",
     "url": "/iarani-test/static/css/2.5036aa7d.chunk.css"
   },
   {
-    "revision": "4d70f1d073d5eff3cb99",
+    "revision": "07b11a1eeefeac5abfed",
     "url": "/iarani-test/static/css/main.7eac72aa.chunk.css"
   },
   {
-    "revision": "09c811fff3128efb1f72",
-    "url": "/iarani-test/static/js/2.862640a5.chunk.js"
+    "revision": "0fb33e3f4628c2989b90",
+    "url": "/iarani-test/static/js/2.b7fc8cd8.chunk.js"
   },
   {
     "revision": "3453b8997016469371284a28c0e873e2",
-    "url": "/iarani-test/static/js/2.862640a5.chunk.js.LICENSE.txt"
+    "url": "/iarani-test/static/js/2.b7fc8cd8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4d70f1d073d5eff3cb99",
-    "url": "/iarani-test/static/js/main.cecaef20.chunk.js"
+    "revision": "07b11a1eeefeac5abfed",
+    "url": "/iarani-test/static/js/main.a6e98d4f.chunk.js"
   },
   {
     "revision": "63789fdda239cc757e2f",

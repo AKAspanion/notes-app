@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/iarani-test/precache-manifest.622b94c142d8d0bde5b33240beb917a4.js"
+  "/iarani-test/precache-manifest.1d868bef3085c8ebf1dc73db4f1d6a18.js"
 );
 
 self.addEventListener('message', (event) => {
