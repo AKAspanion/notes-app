@@ -1,92 +1,94 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Calendar from "react-calendar";
 import { Row, Card, Form, Button, Accordion } from "react-bootstrap";
 
 import { Spacer } from ".";
-import { uid } from "../utils";
 
-function NoteForm({ onChange }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [date, setDate] = useState(new Date());
-
-  const handleSubmit = () => {
-    onChange({ title, content, date: date.toDateString(), id: uid() });
-  };
-
-  const handleDiscard = () => {
-    setTitle("");
-    setContent("");
-    setDate(new Date());
-  };
-
-  const handleAccordionSelect = (e) => {
-    console.log(e);
-  };
-
+function NoteForm({
+  date,
+  title,
+  active,
+  isEdit,
+  onOpen,
+  content,
+  onChange,
+  onSubmit,
+  onDiscard,
+  validated,
+}) {
   return (
-    <div className="d-flex align-items-center justify-content-center">
-      <Accordion
-        activeKey="0"
-        onSelect={handleAccordionSelect}
-        style={{ width: "350px", overflow: "hidden" }}
-      >
-        <Card>
+    <div className="d-flex flex-column align-items-center justify-content-center">
+      <Card style={{ maxWidth: "350px", minWidth: "100%", overflow: "hidden" }}>
+        <Accordion activeKey={active}>
           <Accordion.Toggle
-            eventKey="0"
+            eventKey="active"
             as={Card.Header}
-            onClick={handleAccordionSelect}
-            className="text-left px-3 px-sm-4"
+            onClick={onOpen}
+            className={`text-left px-3 px-sm-3 ${
+              active !== "active" ? "border-bottom-0" : ""
+            }`}
           >
-            Add Note
+            <div className="d-flex">
+              <span>Add Note</span>
+              <Spacer />
+              <span>+</span>
+            </div>
           </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body className="p-3 p-sm-4">
-              <Calendar
-                value={date}
-                onChange={setDate}
-                minDate={new Date()}
-                className="text-center card mb-3 mb-sm-4"
-              />
-              <Form className="text-left" onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicEmail">
+          <Accordion.Collapse eventKey="active">
+            <Card.Body className="p-3 py-3 p-sm-3">
+              <Form className="text-left" onSubmit={onSubmit}>
+                <Form.Group controlId="formBasicTitle">
                   {/* <Form.Label>Title</Form.Label> */}
                   <Form.Control
                     type="text"
                     value={title}
                     placeholder="Title"
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => onChange("Title", e.target.value)}
                   />
                 </Form.Group>
-                <Form.Group controlId="formBasicEmail">
+                <Form.Group controlId="formBasicContent">
                   <Form.Control
                     type="text"
                     as="textarea"
                     value={content}
                     placeholder="Content"
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={(e) => onChange("Content", e.target.value)}
                   />
                 </Form.Group>
                 <Row className="px-3">
                   <Button
-                    size="sm"
                     className="mr-2"
-                    onClick={handleDiscard}
+                    onClick={onDiscard}
                     variant="outline-secondary"
                   >
                     Discard
                   </Button>
                   <Spacer />
-                  <Button size="sm" variant="primary" onClick={handleSubmit}>
-                    Save
+                  <Button variant="primary" type="submit" disabled={!validated}>
+                    {isEdit ? "Update" : "Save"}
                   </Button>
                 </Row>
               </Form>
             </Card.Body>
           </Accordion.Collapse>
-        </Card>
-      </Accordion>
+        </Accordion>
+      </Card>
+      <Card
+        className="text-center mt-3 mt-sm-4 border-none"
+        style={{ width: "330px", overflow: "hidden" }}
+      >
+        <Accordion activeKey={active}>
+          <Accordion.Collapse eventKey="active">
+            <Calendar
+              value={date}
+              className="card"
+              minDate={new Date()}
+              onChange={(e) => onChange("Date", e)}
+            />
+          </Accordion.Collapse>
+        </Accordion>
+      </Card>
     </div>
   );
 }

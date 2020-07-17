@@ -1,14 +1,79 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { Row, Col, Card, Container } from "react-bootstrap";
 
 import { Spacer, NoteForm, NoteList } from "../components";
-import { addNote } from "../actions";
+import { addNote, updateNote } from "../actions";
+import { uid } from "../utils";
 
-function MainPage({ notes, addNoteToState }) {
-  const handleFormChange = (note) => {
-    addNoteToState(note);
+function MainPage({ notes, addNoteToState, updateNoteInState }) {
+  const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [active, setActive] = useState("active");
+  const [validated, setValidated] = useState(false);
+
+  useEffect(() => {
+    setValidated(!!(title && content && date));
+  }, [title, content, date]);
+
+  const clearForm = () => {
+    setTitle("");
+    setContent("");
+    setIsEdit(false);
+    setDate(new Date());
+  };
+
+  const handleFormChange = (prop, value) => {
+    switch (prop) {
+      case "Date":
+        setDate(value);
+        break;
+      case "Title":
+        setTitle(value);
+        break;
+      case "Content":
+        setContent(value);
+        break;
+      case "Id":
+        setId(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    if (e.preventDefault) e.preventDefault();
+
+    if (!validated) return;
+
+    if (isEdit) {
+      updateNoteInState({ title, content, date: date.toDateString(), id });
+    } else {
+      addNoteToState({ title, content, date: date.toDateString(), id: uid() });
+    }
+    clearForm();
+  };
+
+  const handleFormActive = () => {
+    setActive(active === "active" ? null : "active");
+  };
+
+  const handleFormDiscard = () => {
+    clearForm();
+  };
+
+  const handleEdit = ({ date, title, content, id }) => {
+    setIsEdit(true);
+    setActive("active");
+    handleFormChange("Id", id);
+    handleFormChange("Title", title);
+    handleFormChange("Content", content);
+    handleFormChange("Date", new Date(date));
   };
 
   return (
@@ -17,15 +82,30 @@ function MainPage({ notes, addNoteToState }) {
         <div className="d-flex px-3 pt-4 px-sm-4">
           <h2 className="pb-1">Notes</h2>
           <Spacer />
-          toggle
         </div>
-        <hr></hr>
+        <hr />
         <Row className="px-3 px-sm-4">
           <Col xs={12} lg={"auto"} className="pb-3 pt-sm-2 pb-sm-4">
-            <NoteForm onChange={handleFormChange} />
+            <NoteForm
+              date={date}
+              title={title}
+              active={active}
+              isEdit={isEdit}
+              content={content}
+              validated={validated}
+              onOpen={handleFormActive}
+              onChange={handleFormChange}
+              onSubmit={handleFormSubmit}
+              onDiscard={handleFormDiscard}
+            />
           </Col>
+          <hr
+            className={`d-sm-none full-width ${
+              active === "active" ? "mt-0" : "mt-n3"
+            }`}
+          />
           <Col xs={12} lg={"auto"} className="flex-grow-1 pb-3 pt-sm-2 pb-sm-4">
-            <NoteList notes={notes} />
+            <NoteList notes={notes} onEdit={handleEdit} />
           </Col>
         </Row>
       </Card>
@@ -39,4 +119,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addNoteToState: addNote })(MainPage);
+export default connect(mapStateToProps, {
+  addNoteToState: addNote,
+  updateNoteInState: updateNote,
+})(MainPage);

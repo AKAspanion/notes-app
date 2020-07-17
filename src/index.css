@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,4 +18,27 @@ code {
 
 .full-width {
   width: 100%;
+}
+
+.note-enter {
+  opacity: 0;
+}
+.note-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+.note-exit {
+  opacity: 1;
+}
+.note-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.border-bottom-0 {
+  border-bottom: none !important;
+}
+
+.border-none {
+  border: none !important;
 }
