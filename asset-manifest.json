@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.7eac72aa.chunk.css",
-    "main.js": "/static/js/main.ca8efc5b.chunk.js",
-    "main.js.map": "/static/js/main.ca8efc5b.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.56102dff.js",
-    "runtime-main.js.map": "/static/js/runtime-main.56102dff.js.map",
-    "static/css/2.5036aa7d.chunk.css": "/static/css/2.5036aa7d.chunk.css",
-    "static/js/2.862640a5.chunk.js": "/static/js/2.862640a5.chunk.js",
-    "static/js/2.862640a5.chunk.js.map": "/static/js/2.862640a5.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.84f31c7851c81798bbb6700bcc50f9ff.js": "/precache-manifest.84f31c7851c81798bbb6700bcc50f9ff.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.5036aa7d.chunk.css.map": "/static/css/2.5036aa7d.chunk.css.map",
-    "static/css/main.7eac72aa.chunk.css.map": "/static/css/main.7eac72aa.chunk.css.map",
-    "static/js/2.862640a5.chunk.js.LICENSE.txt": "/static/js/2.862640a5.chunk.js.LICENSE.txt"
+    "main.css": "/iarani-test/static/css/main.7eac72aa.chunk.css",
+    "main.js": "/iarani-test/static/js/main.cecaef20.chunk.js",
+    "main.js.map": "/iarani-test/static/js/main.cecaef20.chunk.js.map",
+    "runtime-main.js": "/iarani-test/static/js/runtime-main.c39fa8c1.js",
+    "runtime-main.js.map": "/iarani-test/static/js/runtime-main.c39fa8c1.js.map",
+    "static/css/2.5036aa7d.chunk.css": "/iarani-test/static/css/2.5036aa7d.chunk.css",
+    "static/js/2.862640a5.chunk.js": "/iarani-test/static/js/2.862640a5.chunk.js",
+    "static/js/2.862640a5.chunk.js.map": "/iarani-test/static/js/2.862640a5.chunk.js.map",
+    "index.html": "/iarani-test/index.html",
+    "precache-manifest.622b94c142d8d0bde5b33240beb917a4.js": "/iarani-test/precache-manifest.622b94c142d8d0bde5b33240beb917a4.js",
+    "service-worker.js": "/iarani-test/service-worker.js",
+    "static/css/2.5036aa7d.chunk.css.map": "/iarani-test/static/css/2.5036aa7d.chunk.css.map",
+    "static/css/main.7eac72aa.chunk.css.map": "/iarani-test/static/css/main.7eac72aa.chunk.css.map",
+    "static/js/2.862640a5.chunk.js.LICENSE.txt": "/iarani-test/static/js/2.862640a5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.56102dff.js",
+    "static/js/runtime-main.c39fa8c1.js",
     "static/css/2.5036aa7d.chunk.css",
     "static/js/2.862640a5.chunk.js",
     "static/css/main.7eac72aa.chunk.css",
-    "static/js/main.ca8efc5b.chunk.js"
+    "static/js/main.cecaef20.chunk.js"
   ]
 }
