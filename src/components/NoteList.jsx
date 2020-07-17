@@ -7,7 +7,7 @@ import { Button, ListGroup, Form, InputGroup } from "react-bootstrap";
 
 import { Spacer, EmptyState } from ".";
 
-function NoteList({ notes, onEdit, onSearch, emptyState }) {
+function NoteList({ notes, onEdit, onShow, onSearch, emptyState }) {
   const notesLength = notes.length;
   return (
     <React.Fragment>
@@ -31,7 +31,12 @@ function NoteList({ notes, onEdit, onSearch, emptyState }) {
               <CSSTransition key={note.id} timeout={500} classNames="note">
                 <ListGroup.Item className="px-3 note-list-item">
                   <div className="d-flex align-items-center">
-                    <div className="text-left">
+                    <div
+                      role="button"
+                      title={note.title}
+                      onClick={() => onShow(note)}
+                      className="text-left text-primary note-list-title"
+                    >
                       <span>{note.title}</span>
                     </div>
                     <Spacer />
@@ -48,7 +53,9 @@ function NoteList({ notes, onEdit, onSearch, emptyState }) {
           </TransitionGroup>
         </ListGroup>
       )}
-      {!notesLength && <EmptyState className="note-empty-state" {...emptyState} />}
+      {!notesLength && (
+        <EmptyState className="note-empty-state" {...emptyState} />
+      )}
     </React.Fragment>
   );
 }

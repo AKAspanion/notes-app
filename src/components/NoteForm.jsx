@@ -24,6 +24,7 @@ function NoteForm({
       <Card style={{ maxWidth: "350px", minWidth: "100%", overflow: "hidden" }}>
         <Accordion activeKey={active}>
           <Accordion.Toggle
+            role="button"
             eventKey="active"
             as={Card.Header}
             onClick={onOpen}

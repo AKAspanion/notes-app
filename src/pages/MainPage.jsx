@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { Row, Col, Card, Container } from "react-bootstrap";
 
-import { Spacer, NoteForm, NoteList } from "../components";
+import { Spacer, NoteForm, NoteList, NoteModal } from "../components";
 import { addNote, updateNote } from "../actions";
 import { uid } from "../utils";
 
@@ -16,6 +16,8 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
   const [active, setActive] = useState("active");
   const [searchText, setSearchText] = useState("");
   const [validated, setValidated] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+  const [modalData, setModalData] = useState({});
 
   useEffect(() => {
     setValidated(!!(title && date));
@@ -33,7 +35,24 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
     return emptyState;
   };
 
+  const toggleModal = (show, note) => {
+    setModalShow(show);
+    if (show && note) {
+      setModalData({ ...note });
+    } else {
+      setModalData({});
+    }
+  };
+
+  const populateState = ({ date, title, content, id }) => {
+    handleFormChange("Id", id);
+    handleFormChange("Title", title);
+    handleFormChange("Content", content);
+    handleFormChange("Date", new Date(date));
+  };
+
   const clearForm = () => {
+    setId("");
     setTitle("");
     setContent("");
     setIsEdit(false);
@@ -84,17 +103,20 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
     setSearchText((searchText || "").toLowerCase());
   };
 
-  const handleEdit = ({ date, title, content, id }) => {
+  const handleEdit = (note) => {
     setIsEdit(true);
     setActive("active");
-    handleFormChange("Id", id);
-    handleFormChange("Title", title);
-    handleFormChange("Content", content);
-    handleFormChange("Date", new Date(date));
+
+    populateState(note);
   };
 
   return (
     <Container className="p-3 p-sm-4">
+      <NoteModal
+        {...modalData}
+        show={modalShow}
+        onHide={() => toggleModal(false)}
+      />
       <Card>
         <div className="d-flex px-3 pt-3 px-sm-4">
           <h2 className="pb-1">Notes</h2>
@@ -126,6 +148,7 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
               onEdit={handleEdit}
               onSearch={handleSearch}
               emptyState={emptyStateProps()}
+              onShow={(n) => toggleModal(true, n)}
               notes={notes.filter(({ title }) =>
                 title.toLowerCase().includes(searchText)
               )}
