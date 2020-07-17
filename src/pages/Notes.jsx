@@ -1,19 +1,24 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 
-import { Row, Col, Card, Container } from "react-bootstrap";
+import Icon from "@mdi/react";
+import { mdiFilter } from "@mdi/js";
+import { Row, Col, Card, Container, Dropdown } from "react-bootstrap";
 
 import { Spacer, NoteForm, NoteList, NoteModal } from "../components";
-import { addNote, updateNote, deleteNote } from "../actions";
+import { addNote, updateNote, deleteNote, updateSortBy } from "../actions";
 import { uid } from "../utils";
 
 function Notes({
   size,
   notes,
+  settings,
   addNoteToState,
   updateNoteInState,
   deleteNoteInState,
+  updateSortBySetting,
 }) {
+  // state
   const isSmall = useMemo(() => size.width <= 768, [size.width]);
 
   const [id, setId] = useState("");
@@ -27,6 +32,7 @@ function Notes({
   const [validated, setValidated] = useState(false);
   const [modalShow, setModalShow] = useState(false);
 
+  // effects
   useEffect(() => {
     if (isSmall) {
       setActive(null);
@@ -39,9 +45,11 @@ function Notes({
     setValidated(!!(title && date));
   }, [title, content, date]);
 
+  // methods
   const emptyStateProps = () => {
     const emptyState = {
       title: "No Notes Found",
+      img: "images/empty-state.svg",
       subtitle: "When you are ready, go ahead and add a note",
     };
     if (searchText && notes.length) {
@@ -75,6 +83,42 @@ function Notes({
     setDate(new Date());
   };
 
+  const scrollTop = () => {
+    setTimeout(() => {
+      window.scroll({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 500);
+  };
+
+  const closeFormWhenSmall = () => {
+    if (isSmall) {
+      setActive(null);
+    }
+  };
+
+  const toggleFormActive = () => {
+    setActive(active === "active" ? null : "active");
+  };
+
+  const filteredNotes = () => {
+    const { sortBy } = settings;
+
+    let sortedNotes = notes.sort((a, b) => {
+      if (sortBy === "date") {
+        return new Date(b.date) - new Date(a.date);
+      } else {
+        return a.title.localeCompare(b.title);
+      }
+    });
+
+    return sortedNotes.filter(({ title }) =>
+      title.toLowerCase().includes(searchText)
+    );
+  };
+
+  // handlers
   const handleFormChange = (prop, value) => {
     switch (prop) {
       case "Date":
@@ -105,14 +149,12 @@ function Notes({
       addNoteToState({ title, content, date: date.toDateString(), id: uid() });
     }
     clearForm();
-  };
-
-  const handleFormActive = () => {
-    setActive(active === "active" ? null : "active");
+    closeFormWhenSmall();
   };
 
   const handleFormDiscard = () => {
     clearForm();
+    closeFormWhenSmall();
   };
 
   const handleSearch = (searchText) => {
@@ -124,6 +166,7 @@ function Notes({
     setActive("active");
 
     populateForm(note);
+    scrollTop();
   };
 
   const handleDelete = (note) => {
@@ -143,6 +186,26 @@ function Notes({
         <div className="d-flex px-3 pt-3 px-sm-4">
           <h2 className="pb-1">Notes</h2>
           <Spacer />
+          <Dropdown alignRight>
+            <Dropdown.Toggle size="sm" variant="outline-secondary">
+              <Icon path={mdiFilter} size={0.9}></Icon>
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="note-dropdown">
+              <Dropdown.Header>Sort by</Dropdown.Header>
+              <Dropdown.Item
+                active={settings.sortBy === "date"}
+                onClick={() => updateSortBySetting("date")}
+              >
+                Date
+              </Dropdown.Item>
+              <Dropdown.Item
+                active={settings.sortBy === "title"}
+                onClick={() => updateSortBySetting("title")}
+              >
+                Title
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
         <hr className="mt-1" />
         <Row className="px-3 px-sm-4">
@@ -154,7 +217,7 @@ function Notes({
               isEdit={isEdit}
               content={content}
               validated={validated}
-              onOpen={handleFormActive}
+              onOpen={toggleFormActive}
               onChange={handleFormChange}
               onSubmit={handleFormSubmit}
               onDiscard={handleFormDiscard}
@@ -171,11 +234,9 @@ function Notes({
               onEdit={handleEdit}
               onDelete={handleDelete}
               onSearch={handleSearch}
+              notes={filteredNotes()}
               emptyState={emptyStateProps()}
               onShow={(n) => toggleModal(true, n)}
-              notes={notes.filter(({ title }) =>
-                title.toLowerCase().includes(searchText)
-              )}
             />
           </Col>
         </Row>
@@ -187,6 +248,7 @@ function Notes({
 const mapStateToProps = (state) => {
   return {
     notes: state.notes.notes,
+    settings: state.settings,
   };
 };
 
@@ -194,4 +256,5 @@ export default connect(mapStateToProps, {
   addNoteToState: addNote,
   updateNoteInState: updateNote,
   deleteNoteInState: deleteNote,
+  updateSortBySetting: updateSortBy,
 })(Notes);

@@ -1,4 +1,4 @@
-import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE } from "./types";
+import { ADD_NOTE, UPDATE_NOTE, DELETE_NOTE, UPDATE_SORT_BY } from "./types";
 
 export const addNote = (payload) => {
   return {
@@ -17,6 +17,13 @@ export const updateNote = (payload) => {
 export const deleteNote = (payload) => {
   return {
     type: DELETE_NOTE,
+    payload,
+  };
+};
+
+export const updateSortBy = (payload) => {
+  return {
+    type: UPDATE_SORT_BY,
     payload,
   };
 };
