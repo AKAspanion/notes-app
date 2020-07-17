@@ -1,33 +1,35 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
+import Icon from "@mdi/react";
+import { mdiMagnify } from "@mdi/js";
 import { Button, ListGroup, Form, InputGroup } from "react-bootstrap";
+
 import { Spacer, EmptyState } from ".";
 
-function NoteList({ notes, onEdit }) {
+function NoteList({ notes, onEdit, onSearch, emptyState }) {
   const notesLength = notes.length;
   return (
     <React.Fragment>
+      <div className="mb-4 d-flex align-items-center">
+        <InputGroup>
+          <InputGroup.Prepend>
+            <InputGroup.Text className="px-3">
+              <Icon path={mdiMagnify} size={0.9}></Icon>
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+          <Form.Control
+            placeholder="Search"
+            onChange={(e) => onSearch(e.target.value)}
+          ></Form.Control>
+        </InputGroup>
+      </div>
       {!!notesLength && (
-        <div className="mb-4 d-flex align-items-center">
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
-            </InputGroup.Prepend>
-            <Form.Control placeholder="Search"></Form.Control>
-
-            <InputGroup.Append>
-              <Button variant="outline-primary">Cancel</Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </div>
-      )}
-      {!!notesLength && (
-        <ListGroup>
+        <ListGroup className="note-list">
           <TransitionGroup style={{ borderRadius: "0.25rem" }}>
             {notes.map((note) => (
               <CSSTransition key={note.id} timeout={500} classNames="note">
-                <ListGroup.Item className="px-3">
+                <ListGroup.Item className="px-3 note-list-item">
                   <div className="d-flex align-items-center">
                     <div className="text-left">
                       <span>{note.title}</span>
@@ -46,12 +48,7 @@ function NoteList({ notes, onEdit }) {
           </TransitionGroup>
         </ListGroup>
       )}
-      {!notesLength && (
-        <EmptyState
-          title="No Notes Found"
-          subtitle="When you are ready, go ahead and add a note"
-        />
-      )}
+      {!notesLength && <EmptyState className="note-empty-state" {...emptyState} />}
     </React.Fragment>
   );
 }

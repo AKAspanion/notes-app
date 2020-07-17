@@ -14,11 +14,24 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
   const [isEdit, setIsEdit] = useState(false);
   const [date, setDate] = useState(new Date());
   const [active, setActive] = useState("active");
+  const [searchText, setSearchText] = useState("");
   const [validated, setValidated] = useState(false);
 
   useEffect(() => {
-    setValidated(!!(title && content && date));
+    setValidated(!!(title && date));
   }, [title, content, date]);
+
+  const emptyStateProps = () => {
+    const emptyState = {
+      title: "No Notes Found",
+      subtitle: "When you are ready, go ahead and add a note",
+    };
+    if (searchText && notes.length) {
+      emptyState.img = "images/empty-search.svg";
+      emptyState.subtitle = "To widen your search, change or remove filters";
+    }
+    return emptyState;
+  };
 
   const clearForm = () => {
     setTitle("");
@@ -67,6 +80,10 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
     clearForm();
   };
 
+  const handleSearch = (searchText) => {
+    setSearchText((searchText || "").toLowerCase());
+  };
+
   const handleEdit = ({ date, title, content, id }) => {
     setIsEdit(true);
     setActive("active");
@@ -79,11 +96,11 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
   return (
     <Container className="p-3 p-sm-4">
       <Card>
-        <div className="d-flex px-3 pt-4 px-sm-4">
+        <div className="d-flex px-3 pt-3 px-sm-4">
           <h2 className="pb-1">Notes</h2>
           <Spacer />
         </div>
-        <hr />
+        <hr className="mt-1" />
         <Row className="px-3 px-sm-4">
           <Col xs={12} lg={"auto"} className="pb-3 pt-sm-2 pb-sm-4">
             <NoteForm
@@ -105,7 +122,14 @@ function MainPage({ notes, addNoteToState, updateNoteInState }) {
             }`}
           />
           <Col xs={12} lg={"auto"} className="flex-grow-1 pb-3 pt-sm-2 pb-sm-4">
-            <NoteList notes={notes} onEdit={handleEdit} />
+            <NoteList
+              onEdit={handleEdit}
+              onSearch={handleSearch}
+              emptyState={emptyStateProps()}
+              notes={notes.filter(({ title }) =>
+                title.toLowerCase().includes(searchText)
+              )}
+            />
           </Col>
         </Row>
       </Card>

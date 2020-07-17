@@ -1,5 +1,7 @@
 import React from "react";
 
+import Icon from "@mdi/react";
+import { mdiPlus } from "@mdi/js";
 import Calendar from "react-calendar";
 import { Row, Card, Form, Button, Accordion } from "react-bootstrap";
 
@@ -29,10 +31,10 @@ function NoteForm({
               active !== "active" ? "border-bottom-0" : ""
             }`}
           >
-            <div className="d-flex">
+            <div className="d-flex align-items-center">
               <span>Add Note</span>
               <Spacer />
-              <span>+</span>
+              <Icon path={mdiPlus} size={0.8} />
             </div>
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="active">
