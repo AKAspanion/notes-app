@@ -4,11 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
 import { Notes } from "./pages";
+import { useResizeObserver } from "./hocs";
 
 function App() {
+  const [ref, size] = useResizeObserver();
   return (
-    <div className="App">
-      <Notes />
+    <div ref={ref} className="App">
+      <Notes size={size} />
     </div>
   );
 }

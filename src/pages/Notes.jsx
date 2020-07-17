@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 
 import { Row, Col, Card, Container } from "react-bootstrap";
@@ -7,22 +7,33 @@ import { Spacer, NoteForm, NoteList, NoteModal } from "../components";
 import { addNote, updateNote, deleteNote } from "../actions";
 import { uid } from "../utils";
 
-function MainPage({
+function Notes({
+  size,
   notes,
   addNoteToState,
   updateNoteInState,
   deleteNoteInState,
 }) {
+  const isSmall = useMemo(() => size.width <= 768, [size.width]);
+
   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [date, setDate] = useState(new Date());
   const [active, setActive] = useState("active");
+  const [modalData, setModalData] = useState({});
   const [searchText, setSearchText] = useState("");
   const [validated, setValidated] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  const [modalData, setModalData] = useState({});
+
+  useEffect(() => {
+    if (isSmall) {
+      setActive(null);
+    } else {
+      setActive("active");
+    }
+  }, [isSmall]);
 
   useEffect(() => {
     setValidated(!!(title && date));
@@ -183,4 +194,4 @@ export default connect(mapStateToProps, {
   addNoteToState: addNote,
   updateNoteInState: updateNote,
   deleteNoteInState: deleteNote,
-})(MainPage);
+})(Notes);
