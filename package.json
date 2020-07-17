@@ -2,6 +2,7 @@
   "name": "iarani-test",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ankitkumarspanion.github.io/iarani-test/",
   "dependencies": {
     "@mdi/js": "^5.3.45",
     "@mdi/react": "^1.4.0",
