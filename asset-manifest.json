@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/iarani-test/static/css/main.7eac72aa.chunk.css",
-    "main.js": "/iarani-test/static/js/main.a6e98d4f.chunk.js",
-    "main.js.map": "/iarani-test/static/js/main.a6e98d4f.chunk.js.map",
+    "main.js": "/iarani-test/static/js/main.f9fdb2bd.chunk.js",
+    "main.js.map": "/iarani-test/static/js/main.f9fdb2bd.chunk.js.map",
     "runtime-main.js": "/iarani-test/static/js/runtime-main.c39fa8c1.js",
     "runtime-main.js.map": "/iarani-test/static/js/runtime-main.c39fa8c1.js.map",
     "static/css/2.5036aa7d.chunk.css": "/iarani-test/static/css/2.5036aa7d.chunk.css",
     "static/js/2.b7fc8cd8.chunk.js": "/iarani-test/static/js/2.b7fc8cd8.chunk.js",
     "static/js/2.b7fc8cd8.chunk.js.map": "/iarani-test/static/js/2.b7fc8cd8.chunk.js.map",
     "index.html": "/iarani-test/index.html",
-    "precache-manifest.1d868bef3085c8ebf1dc73db4f1d6a18.js": "/iarani-test/precache-manifest.1d868bef3085c8ebf1dc73db4f1d6a18.js",
+    "precache-manifest.79b0476c88b0445d22d230f24b6ce2b1.js": "/iarani-test/precache-manifest.79b0476c88b0445d22d230f24b6ce2b1.js",
     "service-worker.js": "/iarani-test/service-worker.js",
     "static/css/2.5036aa7d.chunk.css.map": "/iarani-test/static/css/2.5036aa7d.chunk.css.map",
     "static/css/main.7eac72aa.chunk.css.map": "/iarani-test/static/css/main.7eac72aa.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.5036aa7d.chunk.css",
     "static/js/2.b7fc8cd8.chunk.js",
     "static/css/main.7eac72aa.chunk.css",
-    "static/js/main.a6e98d4f.chunk.js"
+    "static/js/main.f9fdb2bd.chunk.js"
   ]
 }

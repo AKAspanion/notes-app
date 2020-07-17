@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ea413a3fdb56600d3be72422880783bf",
+    "revision": "b8ea13c2369aa5d9ab1d322ec1d57d84",
     "url": "/iarani-test/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/iarani-test/static/css/2.5036aa7d.chunk.css"
   },
   {
-    "revision": "07b11a1eeefeac5abfed",
+    "revision": "1d8fcf29403c3bf75c78",
     "url": "/iarani-test/static/css/main.7eac72aa.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/iarani-test/static/js/2.b7fc8cd8.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "07b11a1eeefeac5abfed",
-    "url": "/iarani-test/static/js/main.a6e98d4f.chunk.js"
+    "revision": "1d8fcf29403c3bf75c78",
+    "url": "/iarani-test/static/js/main.f9fdb2bd.chunk.js"
   },
   {
     "revision": "63789fdda239cc757e2f",
