@@ -13,3 +13,11 @@ Used components from `react-bootstrap` and `redux` for state management.
 
 ## Demo
 Watch the demo [here](https://akaspanion.github.io/iarani-test/).
+
+## Run locally
+```bash
+git clone https://github.com/AKAspanion/iarani-test.git
+cd iarani-test
+npm install
+npm run start
+```
