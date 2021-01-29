@@ -10,4 +10,4 @@ Instructed to use`bootstrap`, `react-bootstrap` and `react-calendar` library.
 Created a clean looking Note taking apllication using components from `react-bootstrap` and used `redux` for state management.
 
 ## Demo
-Watch the demo [here](https://akaspanion.github.io/notes-app/).
+Watch the demo [here](https://akaspanion.github.io/iarani-test/).
